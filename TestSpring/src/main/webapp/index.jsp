@@ -1,0 +1,1 @@
+<jsp:forward page="first_page.html"></jsp:forward>

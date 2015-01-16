@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation=" http://www.springframework.org/schema/beans
+                                  http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+                                  http://www.springframework.org/schema/security
+                                  http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+
+
+    <http auto-config="true" use-expressions="true">
+
+        <intercept-url pattern="/incoming_message/**" access="isFullyAuthenticated()"/>
+        <form-login login-page="/login.html" default-target-url="/list_user.html"
+                    authentication-failure-url="/error-login.html"/>
+        <logout logout-url="/logout"/>
+
+        <intercept-url pattern="/first_page/**" access="isFullyAuthenticated()"/>
+        <form-login login-page="/login.html" default-target-url="/incoming_message.html"
+                    authentication-failure-url="/error-login.html"/>
+        <logout logout-success-url="/first_page.html"/>
+
+        <intercept-url pattern="/start_page/**" access="isFullyAuthenticated()"/>
+        <form-login login-page="/login.html" default-target-url="/incoming_message.html"
+                    authentication-failure-url="/error-login.html"/>
+        <logout logout-success-url="/start_page.html"/>
+
+        <intercept-url pattern="/send_message/**" access="isFullyAuthenticated()"/>
+        <form-login login-page="/login.html" default-target-url="/incoming_message.html"
+                    authentication-failure-url="/error-login.html"/>
+        <logout logout-success-url="/start_page.html"/>
+
+        <intercept-url pattern="/sending_message/**" access="isFullyAuthenticated()"/>
+        <form-login login-page="/login.html" default-target-url="/incoming_message.html"
+                    authentication-failure-url="/error-login.html"/>
+        <logout logout-success-url="/start_page.html"/>
+
+        <intercept-url pattern="/creating_user/**" access="isFullyAuthenticated()"/>
+        <form-login login-page="/login.html" default-target-url="/incoming_message.html"
+                    authentication-failure-url="/error-login.html"/>
+        <logout logout-success-url="/start_page.html"/>
+
+        <intercept-url pattern="/1edit_page/**" access="isFullyAuthenticated()"/>
+        <form-login login-page="/login.html" default-target-url="/incoming_message.html"
+                    authentication-failure-url="/error-login.html"/>
+        <logout logout-success-url="/start_page.html"/>
+
+        <intercept-url pattern="/user_list/**" access="isFullyAuthenticated()"/>
+        <form-login login-page="/login.html" default-target-url="/incoming_message.html"
+                    authentication-failure-url="/error-login.html"/>
+        <logout logout-success-url="/start_page.html"/>
+
+    </http>
+
+
+    <authentication-manager>
+        <authentication-provider user-service-ref="сustomUserDetailsService">
+
+            <password-encoder hash="plaintext">
+            </password-encoder>
+        </authentication-provider>
+    </authentication-manager>
+
+
+    <beans:bean id="сustomUserDetailsService"
+                class="com.my.messages.service.CustomUserDetailsService">
+
+
+    </beans:bean>
+
+
+    <beans:import resource="appServlet/servlet-context.xml"/>
+
+
+</beans:beans>
